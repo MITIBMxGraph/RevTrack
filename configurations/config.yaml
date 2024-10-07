@@ -1,0 +1,18 @@
+# configuration parsing starts here
+defaults:
+  - experiment: exp_subgraph_classification # experiment yaml file name in configurations/experiments folder [fixme]
+  - dataset: elliptic # dataset yaml file name in configurations/dataset folder [fixme]
+  - algorithm: bipartite_gnn # algorithm yaml file name in configurations/algorithm folder [fixme]
+  - cluster: null # optional, cluster yaml file name in configurations/cluster folder. Leave null for local compute
+
+debug: false # global debug flag will be passed into configuration of experiment, dataset and algorithm
+
+wandb:
+  entity: elliptic_bipartite # wandb account name / organization name [fixme]
+  project: elliptic_bipartite # wandb project name; if not provided, defaults to root folder name [fixme]
+  mode: online # set wandb logging to online, offline or dryrun
+
+resume: null # wandb run id to resume logging and loading checkpoint from
+load: null # wanmdb run id containing checkpoint or a path to a checkpoint file 
+
+seed: null

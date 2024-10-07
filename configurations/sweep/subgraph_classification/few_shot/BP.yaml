@@ -1,0 +1,30 @@
+name: bipartite_gnn_few_shot_seed
+program: main.py
+method: grid
+
+metric:
+  goal: maximize
+  name: final_test/prauc
+
+parameters:
+  seed:
+    values: [0, 1, 2]
+  dataset.shot_size:
+    values: [663, 221, 66]
+    
+  # Default params
+  dataset:
+    value: elliptic
+  algorithm:
+    value: bipartite_gnn
+  wandb.mode:
+    value: online
+  experiment.training.batch_size:
+    value: 16
+  
+command:
+  - ${env}
+  - python
+  - ${program}
+  - ${args_no_hyphens}
+  - +name=${algorithm._name}_shot_${dataset.shot_size}_seed_${seed}

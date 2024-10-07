@@ -1,0 +1,20 @@
+defaults:
+  - exp_subgraph_classification
+
+training:
+  checkpointing:
+    monitor: validation/f1
+    mode: max
+    lazy: True
+  early_stopping:
+    enabled: True
+    patience: 30
+  max_epochs: 150
+
+validation:
+  test_during_training: True
+
+test:
+  data:
+    num_workers: 0
+  batch_size: -1

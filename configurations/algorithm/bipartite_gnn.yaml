@@ -1,0 +1,11 @@
+defaults:
+  - base_subgraph_algo
+
+model:
+  num_layers: 2
+  hidden_dim: 64
+  dropout: 0.3
+  conv: GIN
+  activation: ELU
+  pool: sum
+

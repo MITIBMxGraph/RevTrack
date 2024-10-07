@@ -1,0 +1,48 @@
+name: iterative_filtering_k_dep_finetuned
+program: main.py
+method: grid
+
+metric:
+  goal: maximize
+  name: final_test/HR
+
+parameters:
+  load:
+    values: [checkpoints/RevTrack/0_tuned.ckpt, checkpoints/RevTrack/1_tuned.ckpt, checkpoints/RevTrack/2_tuned.ckpt]
+  algorithm.top_k:
+    values: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+
+  # Default params
+  dataset:
+    value: elliptic_recommendation
+  dataset.num_samples:
+    value: 256
+  dataset.num_illicits:
+    value: 1
+  dataset.num_licits:
+    value: 1000
+  algorithm:
+    value: iterative_filtering
+  algorithm.keep_multiplier:
+    value: 1.5
+  experiment:
+    value: exp_edge_recommendation
+  experiment.tasks:
+    value: [test]
+  experiment.test.batch_size:
+    value: 16
+  seed:
+    value: 0
+  wandb.mode:
+    value: online
+  +wandb.group:
+    value: recommendation-v1
+  +wandb.job_type:
+    value: test
+
+command:
+  - ${env}
+  - python
+  - ${program}
+  - ${args_no_hyphens}
+  - +name=if_${dataset.num_illicits}+${dataset.num_licits}@${algorithm.top_k}

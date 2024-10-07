@@ -1,0 +1,9 @@
+defaults:
+  - base_dataset
+
+num_classes: 2
+is_multilabel: false
+num_features: 43
+emb_path: data/elliptic/processed/emb.pt
+edge_index_path: data/elliptic/processed/edge_index.pt
+shot_size: -1

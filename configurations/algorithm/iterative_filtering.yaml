@@ -1,0 +1,10 @@
+defaults:
+  - deepsets
+
+top_k: ${dataset.num_illicits}
+# Keep at most top_k * top_k_multiplier SenderToReceiverData every iteration
+keep_multiplier: 1.5
+
+test_every_n_epoch: 1
+train_with_1_1: false
+use_edge_index: False

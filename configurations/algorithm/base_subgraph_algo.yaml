@@ -1,0 +1,12 @@
+defaults:
+  - base_pytorch_algo
+
+dataset:
+  name: ${dataset._name}
+  num_classes: ${dataset.num_classes}
+  is_multilabel: ${dataset.is_multilabel}
+
+model:
+  num_classes: ${dataset.num_classes}
+  input_dim: ${dataset.num_features}
+  emb_path: ${dataset.emb_path}

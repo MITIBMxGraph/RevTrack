@@ -1,0 +1,31 @@
+name: deepsets_sweep
+program: main.py
+method: grid # hp search method - maybe grid or random
+
+metric:
+  goal: maximize
+  name: final_test/prauc
+
+parameters:
+  # Sweep params
+  algorithm.model.num_layers:
+    values: [1, 2]
+  algorithm.model.hidden_dim:
+    values: [64, 128]
+  algorithm.model.pool:
+    values: [mean, sum, max]
+  algorithm.model.dropout:
+    values: [0.1, 0.2, 0.3]
+
+  # Default params
+  algorithm:
+    value: deepsets
+  wandb.mode:
+    value: online
+
+command:
+  - ${env}
+  - python
+  - ${program}
+  - ${args_no_hyphens}
+  - +name=deepsets_sweep_${algorithm.model.num_layers}_${algorithm.model.hidden_dim}_${algorithm.model.pool}_${algorithm.model.dropout}

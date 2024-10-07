@@ -1,0 +1,21 @@
+defaults:
+  - base_pytorch
+
+tasks: [training, test]
+
+lr: 1e-3
+training:
+  batch_size: 2048
+  checkpointing:
+    monitor: validation/prauc
+    mode: max
+    lazy: True
+  early_stopping:
+    enabled: True
+    patience: 30
+  max_epochs: 150
+validation:
+  batch_size: -1
+  test_during_training: True
+test:
+  batch_size: -1

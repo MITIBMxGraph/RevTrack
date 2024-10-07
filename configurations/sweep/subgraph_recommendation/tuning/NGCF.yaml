@@ -1,0 +1,45 @@
+name: ngcf_sweep
+program: main.py
+method: grid # hp search method - maybe grid or random
+
+metric:
+  goal: maximize
+  name: final_test/HR
+
+parameters:
+  # Sweep params
+  algorithm.model.num_layers:
+    values: [1, 2, 3, 4]
+  algorithm.model.dropout:
+    values: [0.1, 0.2, 0.3]
+  algorithm.model.normalize:
+    values: [True, False]
+
+  # Default params
+  dataset:
+    value: elliptic_recommendation
+  algorithm:
+    value: ngcf
+  experiment:
+    value: exp_edge_recommendation
+  experiment.training.batch_size:
+    value: 1024
+  experiment.validation.test_during_training:
+    value: False
+  seed:
+    value: 0
+  wandb.mode:
+    value: online
+  +shortcut:
+    value: 1+1@1
+  +wandb.group:
+    value: recommendation-v1
+  +wandb.job_type:
+    value: sweep
+
+command:
+  - ${env}
+  - python
+  - ${program}
+  - ${args_no_hyphens}
+  - +name=ngcf_sweep_${algorithm.model.num_layers}_${algorithm.model.dropout}

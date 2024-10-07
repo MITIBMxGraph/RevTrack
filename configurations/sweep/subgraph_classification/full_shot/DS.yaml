@@ -1,0 +1,29 @@
+name: deepsets_seed
+program: main.py
+method: grid
+
+metric:
+  goal: maximize
+  name: final_test/prauc
+
+parameters:
+  seed:
+    values: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    
+  # Default params
+  dataset:
+    value: elliptic
+  algorithm:
+    value: deepsets
+  wandb.mode:
+    value: online
+  
+run_cap: 10
+
+
+command:
+  - ${env}
+  - python
+  - ${program}
+  - ${args_no_hyphens}
+  - +name=${algorithm._name}_seed_${seed}

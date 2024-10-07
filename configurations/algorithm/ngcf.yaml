@@ -1,0 +1,15 @@
+defaults:
+  - base_cf
+
+model:
+  num_layers: 1
+  dropout: 0.2
+  conv: NGCF
+  aggr: concat
+  normalize: false
+
+top_k: ${dataset.num_illicits}
+
+test_every_n_epoch: 1
+train_with_1_1: true
+use_edge_index: true

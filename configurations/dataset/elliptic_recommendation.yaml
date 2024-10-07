@@ -1,0 +1,13 @@
+defaults:
+  - elliptic
+
+num_illicits: 5
+num_licits: 10
+num_samples: 256
+filter_1_1: ${algorithm.train_with_1_1}
+augment:
+  enabled: False
+  min: 1
+  max: 20
+  gamma: 0.4
+use_edge_index: ${algorithm.use_edge_index}

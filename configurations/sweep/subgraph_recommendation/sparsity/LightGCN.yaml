@@ -1,0 +1,46 @@
+name: lightgcn_sparsity
+program: main.py
+method: grid
+
+metric:
+  goal: maximize
+  name: final_test/HR
+
+parameters:
+  load:
+    values: [checkpoints/LightGCN/0.ckpt, checkpoints/LightGCN/1.ckpt, checkpoints/LightGCN/2.ckpt]
+  dataset.num_licits:
+    values: [10, 20, 40, 80, 160, 320, 640, 1280, 2560, 5120, 10240]
+
+  # Default params
+  dataset:
+    value: elliptic_recommendation
+  dataset.num_samples:
+    value: 256
+  dataset.num_illicits:
+    value: 1
+  algorithm:
+    value: lightgcn
+  algorithm.top_k:
+    value: 10
+  experiment:
+    value: exp_edge_recommendation
+  experiment.tasks:
+    value: [test]
+  experiment.test.batch_size:
+    value: -1
+  seed:
+    value: 0
+  wandb.mode:
+    value: online
+  +wandb.group:
+    value: recommendation-v1
+  +wandb.job_type:
+    value: test
+
+command:
+  - ${env}
+  - python
+  - ${program}
+  - ${args_no_hyphens}
+  - +name=lightgcn_${dataset.num_illicits}+${dataset.num_licits}@${algorithm.top_k}

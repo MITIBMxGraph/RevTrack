@@ -1,0 +1,42 @@
+name: lightgcn_multi_settings
+program: main.py
+method: grid
+
+metric:
+  goal: maximize
+  name: final_test/HR
+
+parameters:
+  load:
+    values: [checkpoints/LightGCN/0.ckpt, checkpoints/LightGCN/1.ckpt, checkpoints/LightGCN/2.ckpt]
+  +shortcut:
+    values: [1+5@1, 1+10@1, 1+10@3, 1+100@3, 3+100@10, 3+1000@10, 10+1000@100, 10+10000@100]
+
+  # Default params
+  dataset:
+    value: elliptic_recommendation
+  dataset.num_samples:
+    value: 256
+  algorithm:
+    value: lightgcn
+  experiment:
+    value: exp_edge_recommendation
+  experiment.tasks:
+    value: [test]
+  experiment.test.batch_size:
+    value: -1
+  seed:
+    value: 0
+  wandb.mode:
+    value: online
+  +wandb.group:
+    value: recommendation-v1
+  +wandb.job_type:
+    value: test
+
+command:
+  - ${env}
+  - python
+  - ${program}
+  - ${args_no_hyphens}
+  - +name=lightgcn_${shortcut}

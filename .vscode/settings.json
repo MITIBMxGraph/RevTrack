@@ -1,0 +1,10 @@
+{
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.formatOnSave": true
+    },
+    "pylint.args": [
+        "--disable=C0114, C0115, C0116, W0212, C0301, W0221, R1735, E0402, C3001",
+        "--generated-members=numpy.*, torch.*"
+    ],
+}
